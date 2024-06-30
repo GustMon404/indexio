@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "indexio"
+version = "0.1.0"
+description = ""
+authors = ["Monteiro <monteiro@tins.com.br>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+openai = "^1.35.7"
+fastapi = "^0.111.0"
+pydantic = "^2.7.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
