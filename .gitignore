@@ -1,0 +1,47 @@
+# Bytecode Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ambiente virtual
+venv/
+ENV/
+.env
+
+# Arquivos de banco de dados
+*.db
+*.sql
+
+# Diretórios de configuração
+/.vscode/
+/.idea/
+*.swp
+
+# Arquivos específicos de sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos de logs e dados
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+
+# Pasta de uploads (se não quiser que uploads sejam versionados)
+/uploads/
+
+# Arquivos de configuração que podem conter informações sensíveis
+config.ini
+*.conf
+*.json
+
+# Dependências
+/node_modules/
+/jspm_packages/
+
+# Arquivos de build e compilação
+/dist/
+/tmp/
+/build/
