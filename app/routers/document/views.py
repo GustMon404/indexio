@@ -1,14 +1,15 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 
 from .schemas import *
-from .service import set_index_document
+from .services import process_and_store_extracted_info
 
 router = APIRouter(prefix='/document')
 
 
 @router.post('/extract', response_model=Message)
-def extract(document: Document):
+async def extract(document: Document):
     list_fields = document.model_dump()['fields']
     text = document.model_dump()['text_plain']
-    teste = set_index_document(list_fields, text)
-    return {'message': teste}
+    type_form = document.model_dump()['type_form']
+    document_id = await process_and_store_extracted_info(list_fields, text, type_form)
+    return {'message': document_id}

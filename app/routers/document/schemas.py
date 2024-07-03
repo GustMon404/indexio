@@ -12,5 +12,6 @@ class Field(BaseModel):
 
 
 class Document(BaseModel):
+    type_form: str
     fields: list[Field]
     text_plain: str
