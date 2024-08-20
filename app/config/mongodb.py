@@ -1,18 +1,15 @@
-import os
-
-from dotenv import load_dotenv
 from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
 from pymongo.errors import ConnectionFailure
 from contextlib import asynccontextmanager
 from logging import info
 from fastapi import FastAPI
 
+from .env import env
 # load .env
-dotenv_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), '.env')
-load_dotenv(dotenv_path)
 
-MONGODB_URL = os.environ['MONGODB_URL']
-MONGODB_NAME = os.environ['DB_NAME']
+
+MONGODB_URL = env['MONGODB_URL']
+MONGODB_NAME = env['DB_NAME']
 
 
 class Database:

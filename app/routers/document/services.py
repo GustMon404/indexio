@@ -3,11 +3,13 @@ from app.routers.document.models import DocumentLogCollection, ErrorLogCollectio
 from app.config.mongodb import database as db_mongo
 from bson import ObjectId
 from app.routers.document.constants import STATUS, ERROR_TYPE
-
+from celery import shared_task
+from app.config.worker import celery_app
 from app import utils
 
 
-async def extract_information_from_text(prompt_system: str, prompt_user: str, document_id: str):
+# @celery_app.task(bind=True)
+async def extract_information_from_text(self, prompt_system: str, prompt_user: str, document_id: str):
     async def store_result(result):
         if json_dict := utils.get_json_if_valid(result):
             await update_document(ObjectId(document_id), status=STATUS.FINISHED, result=json_dict)
@@ -46,10 +48,8 @@ def get_prompt_system(list_fields: list[dict]) -> str:
 async def process_and_store_extracted_info(list_fields: list[dict], text: str, type_form: str) -> str:
     document_log_id = await add_document(list_fields, text, type_form)
     prompt_user = get_prompt_system(list_fields)
-    # document = await get_document(document_log_id)
-    await extract_information_from_text(prompt_user, text, document_log_id)
+    extract_information_from_text(prompt_user, text, str(document_log_id))
     return str(document_log_id)
-    # return extract_data(prompt_user, text, document_log_id)
 
 
 async def add_document(list_fields: list[dict], text: str, type_form: str):
